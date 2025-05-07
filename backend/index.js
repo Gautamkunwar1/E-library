@@ -7,6 +7,7 @@ import AuthRouter from './routes/AuthRouter.js';
 import msgRouter from './routes/MsgRouter.js';
 import bookRouter from './routes/BookRouter.js';
 import userRouter from './routes/UserRouter.js';
+import AdminRouter from './routes/AdminRouter.js';
 import cookieParser from "cookie-parser"
 
 dotenv.config();
@@ -27,6 +28,7 @@ app.use("/api/auth",AuthRouter);
 app.use("/api/user",userRouter);
 app.use("/api/book",bookRouter);
 app.use("/api/msg",msgRouter);
+app.use("/api/admin",AdminRouter)
 
 
 app.listen(port, async () => {

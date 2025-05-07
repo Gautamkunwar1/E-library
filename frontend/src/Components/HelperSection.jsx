@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import BookCard from './BookCard';
 import CardSection from './CardSection';
+import { FaLock } from "react-icons/fa";
 
 function Index() {
     const [books, setBooks] = useState([]);
@@ -39,6 +40,25 @@ function Index() {
                             desc={book.desc}
                         />
                     ))}
+                    <div className="relative w-[380px]  bg-[#e4fcf4da] overflow-hidden rounded-md shadow-lg text-center">
+                        <div className='h-60 flex justify-center items-center text-5xl text-green-600 bg-cover bg-center relative'
+                            style={{ backgroundImage: 'url("src/Images/bookS.jpg")' }}>
+
+                            <div className="absolute inset-0 bg-white/20 backdrop-blur-sm flex justify-center items-center">
+                                <FaLock className="text-6xl text-green-900 drop-shadow-md" />
+                            </div>
+                        </div>
+
+                        <div className="text-center p-4 text-gray-700 font-medium text-lg">
+                            You need to purchase our premium subscription for accessing more content.
+                        </div>
+                        
+                        <a href="#" className='text-blue-800 underline text-lg'>Visit our premium plan list</a>
+
+                        <button className='bg-[#6baf76] w-[95%] p-2 mt-6 mb-5 mx-auto font-bold text-white cursor-pointer hover:bg-[#436e4a]'>
+                            Subscribe Now
+                        </button>
+                    </div>
                 </div>
             </CardSection>
         </div>
