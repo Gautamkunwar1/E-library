@@ -87,7 +87,7 @@ function AddBook() {
             form.append("pdf", formData.pdf);
 
             try {
-                await axios.post("api/book/addbook", form, {
+                await axios.post("/api/book/addbook", form, {
                     headers: {
                         "Content-Type": "multipart/form-data",
                     },

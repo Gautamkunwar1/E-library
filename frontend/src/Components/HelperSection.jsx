@@ -49,13 +49,13 @@ function Index() {
                             </div>
                         </div>
 
-                        <div className="text-center p-4 text-gray-700 font-medium text-lg">
+                        <div className="text-center p-2 text-gray-700 font-medium text-lg">
                             You need to purchase our premium subscription for accessing more content.
                         </div>
                         
                         <a href="#" className='text-blue-800 underline text-lg'>Visit our premium plan list</a>
 
-                        <button className='bg-[#6baf76] w-[95%] p-2 mt-6 mb-5 mx-auto font-bold text-white cursor-pointer hover:bg-[#436e4a]'>
+                        <button className='bg-[#6baf76] w-[95%] p-2 mt-3 mb-5 mx-auto font-bold text-white cursor-pointer hover:bg-[#436e4a]'>
                             Subscribe Now
                         </button>
                     </div>

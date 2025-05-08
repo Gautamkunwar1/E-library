@@ -20,6 +20,17 @@ function BookTable() {
         };
         fetchData();
     },[])
+
+    async function handleDelClick(row){
+        const bookId = row._id;
+        const confirmed = confirm("Are you sure to delete this book?")
+        if(!confirmed) return;
+        try {
+            const response = await axios.delete(`/api/admin/delete/${bookId}`);
+        } catch (error) {
+            console.error("Something went wrong")
+        }
+    }
     return (
         <div className='bg-green-50 h-[88vh]'>
         <div className='flex justify-around items-center  bg-[#7fb690] h-[8vh] w-full'>
@@ -44,7 +55,8 @@ function BookTable() {
                     td4 = {row.publishYear}
                     td6 = {row.genre}
                     td7 = {row.image}
-                    td8={<span className="flex pl-5 gap-4 text-lg cursor-pointer"><FiEdit /> <FaTrashAlt /></span>}
+                    td8={<span className="flex gap-4 text-lg "><button className='cursor-pointer'><FiEdit /></button>
+                    <button className='cursor-pointer' onClick={()=>handleDelClick(row)}><FaTrashAlt /></button></span>}
                     />
                 ))}
             </tbody>

@@ -21,6 +21,21 @@ function Table() {
         };
         fetchData();
     },[])
+
+    async function handleClick(row) {
+        const userId = row._id;
+    
+        const confirmed = confirm("Are you sure to delete this user?");
+        if (!confirmed) return;
+    
+        try {
+            const response = await axios.delete(`/api/admin/deleteUser/${userId}`);
+            console.log("User deleted:", response.data);
+        } catch (error) {
+            console.log("Something went wrong", error);
+        }
+    }
+    
     return (
         <div className='bg-green-50 h-[88vh]'>
             <div className='flex justify-around items-center  bg-[#7fb690] h-[8vh] w-full'>
@@ -43,7 +58,7 @@ function Table() {
                         td2 = {row.name}
                         td3 = {row.email}
                         td4 = {formatDateTime(row.createdAt)}
-                        td5={<span className="flex pl-5 gap-4 text-lg cursor-pointer"><FiEdit /> <FaTrashAlt /></span>}
+                        td5={<span className="text-lg cursor-pointer"><button onClick={()=>handleClick(row)}><FaTrashAlt /></button>  </span>}
                         />
                     ))}
                 </tbody>
