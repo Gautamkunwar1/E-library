@@ -13,7 +13,7 @@ export const bookEdit = async(req,res)=>{
         } 
     } catch (error) {
         return res.status(500).json({message:"Book update failed",error:error.message});
-    }   
+    }
 }
 
 export const deleteBook = async(req,res)=>{
