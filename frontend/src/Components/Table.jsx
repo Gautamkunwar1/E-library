@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import TableRow from './TableRow';
+import { useEffect, useState } from 'react';
+import { FaTrashAlt } from "react-icons/fa";
 import SearchBox from "../Components/SearchBox";
 import formatDateTime from '../utils/formatDateTime';
-import { FaTrashAlt } from "react-icons/fa";
-import { FiEdit } from "react-icons/fi";
+import TableRow from './TableRow';
 
 function Table() {
     const tableHeader = ["UserId","Username","Email","Created At","Action"];
     const[tableRowData,setTableRowData] = useState([]);
+    const [refresh, setRefresh] = useState(false)
 
     useEffect(()=>{
         const fetchData = async()=>{
@@ -20,13 +20,17 @@ function Table() {
             }
         };
         fetchData();
-    },[])
+    },[refresh])
 
     async function handleClick(row) {
         const userId = row._id;
     
         const confirmed = confirm("Are you sure to delete this user?");
         if (!confirmed) return;
+
+        if(confirmed){
+            setRefresh(prev => !prev)
+        }
     
         try {
             const response = await axios.delete(`/api/admin/deleteUser/${userId}`);

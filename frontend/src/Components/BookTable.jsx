@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import TableRow from './TableRow';
 import SearchBox from './SearchBox';
+import EditCarModel from './EditCarModel';
 import { FaTrashAlt } from "react-icons/fa";
 import { FiEdit } from "react-icons/fi";
 
 function BookTable() {
     const tableHeader = ["ISBN","BooKName","Author","PublishYear","Genre","Image","Action"];
     const[tableRowData,setTableRowData] = useState([]);
+    const[refresh,setRefresh] = useState(false)
+     const[isOpen,setIsOpen] = useState(false);
 
     useEffect(()=>{
         const fetchData = async()=>{
@@ -19,17 +22,25 @@ function BookTable() {
             }
         };
         fetchData();
-    },[])
+    },[refresh])
 
     async function handleDelClick(row){
         const bookId = row._id;
         const confirmed = confirm("Are you sure to delete this book?")
         if(!confirmed) return;
+        
+        if(confirmed){
+            setRefresh(prev=>!prev)
+        }
         try {
             const response = await axios.delete(`/api/admin/delete/${bookId}`);
         } catch (error) {
             console.error("Something went wrong")
         }
+    }
+
+    function handleEditClick(){
+        setIsOpen(true)
     }
     return (
         <div className='bg-green-50 h-[88vh]'>
@@ -55,12 +66,13 @@ function BookTable() {
                     td4 = {row.publishYear}
                     td6 = {row.genre}
                     td7 = {row.image}
-                    td8={<span className="flex gap-4 text-lg "><button className='cursor-pointer'><FiEdit /></button>
+                    td8={<span className="flex gap-4 text-lg "><button className='cursor-pointer' onClick={()=>handleEditClick()}><FiEdit /></button>
                     <button className='cursor-pointer' onClick={()=>handleDelClick(row)}><FaTrashAlt /></button></span>}
                     />
                 ))}
             </tbody>
         </table>
+        {isOpen && <EditCarModel setIsOpen={setIsOpen}/>}
     </div>
     )
 }
