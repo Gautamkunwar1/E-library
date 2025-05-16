@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import axios from 'axios';
 
 function ContactForm() {
     const [formData, setFormData] = useState({
@@ -14,6 +15,14 @@ function ContactForm() {
         setFormData({ ...formData, [name]: value });
     }
 
+    async function addMsgApi(formData){
+        try {
+            await axios.post("/api/msg/addMsg", formData);
+        } catch (error) {
+            console.error("Something went wrong",error.message)
+        }
+
+    }
     function handleSubmit(e) {
         e.preventDefault();
         const newErrors = validateForm(formData);

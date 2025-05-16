@@ -1,28 +1,42 @@
-import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import TableRow from '../Components/TableRow';
-import SearchBox from '../Components/SearchBox';
-import formatDateTime from '../utils/formatDateTime'
+import { useEffect, useState } from 'react';
 import { FaTrashAlt } from "react-icons/fa";
-import { FiEdit } from "react-icons/fi";
+import SearchBox from '../Components/SearchBox';
+import TableRow from '../Components/TableRow';
+import formatDateTime from '../utils/formatDateTime';
 
 function AllMessages() {
   const tableHeader = ["Name", "Email", "Message", "Date", "Action"];
   const [tableRowData, setTableRowData] = useState([]);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/api/msg/getAllMsg");
+        const response = await axios.get("/api/msg/getAllMsg");
         setTableRowData(response.data.allMsg);
       } catch (error) {
         console.error("Error in fetching Api:", error.message);
       }
     };
     fetchData();
-  }, []);
+  }, [refresh]);
 
- 
+  async function handleDelClick(row) {
+    const userId = row._id;
+    const confirmed = confirm("Are you sure to delete this message")
+    if (!confirmed) return
+
+    if (confirmed) {
+      setRefresh(prev => !prev)
+    }
+
+    try {
+      await axios.delete(`/api/admin/deleteMsg/${userId}`)
+    } catch (error) {
+      console.error("Something went wrong");
+    }
+  }
 
   return (
     <div className='bg-green-50 h-[88vh]'>
@@ -47,9 +61,7 @@ function AllMessages() {
               td3={row.msg}
               td4={formatDateTime(row.createdAt)}
               td5={
-                <span className="flex pl-5 gap-4 text-lg cursor-pointer">
-                  <FiEdit /> <FaTrashAlt />
-                </span>
+                <button className='cursor-pointer' onClick={() => handleDelClick(row)}> <FaTrashAlt /> </button>
               }
             />
           ))}
