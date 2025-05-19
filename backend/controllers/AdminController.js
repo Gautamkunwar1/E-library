@@ -1,4 +1,5 @@
 import book from "../model/bookSchema.js";
+import messages from "../model/msgSchema.js";
 import User from "../model/userSchema.js";
 
 export const bookEdit = async(req,res)=>{
@@ -41,5 +42,19 @@ export const deleteUser = async(req,res)=>{
         }
     } catch (error) {
         return res.status(500).json({message:"Server Error"});
+    }
+}
+
+export const deleteMsg = async(req,res)=>{
+    const {id} =req.params;
+    try {
+        const msg = await messages.findByIdAndDelete(id);
+        if(msg){
+            return res.status(200).json({message:"User's message deleted successfully"});
+        }else{
+            return res.status(400).json({message:"Msg not found"});
+        }
+    } catch (error) {
+        return res.status(500).json({message:"Internal server Error"});
     }
 }
