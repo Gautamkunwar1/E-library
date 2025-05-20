@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 import App from "../App";
 import AdminLayout from "../Layout/AdminLayout";
 import About from "../Pages/About";
@@ -15,6 +15,24 @@ import Login from "../Pages/Login";
 import Signup from "../Pages/Signup";
 
 
+const user = {
+    isLoggedIn: true,
+    role: "admin"
+}
+
+const AdminRoute = () => {
+    const isAuthenticated = user?.isLoggedIn;
+    const isAdmin = user?.role === "admin"
+
+    if (!isAuthenticated) {
+        return <Navigate to="/login" replace />
+    }
+    if (!isAdmin) {
+        return <Navigate to="/" replace />
+    }
+    return <Outlet />
+}
+
 const router = createBrowserRouter([
     {
         path: "/",
@@ -30,16 +48,22 @@ const router = createBrowserRouter([
         ],
     },
     {
-        path: "/admin",
-        element: <AdminLayout />,
+        path: "admin",
+        element: <AdminRoute />, 
         children: [
-            { path:"/admin", element: <Admin /> },
-            { path:"user", element: <AllUsers /> },
-            { path:"books", element: <AllBooks /> },
-            { path:"addBook", element: <AdminAddBook /> },
-            { path:"allmsg", element: <AllMessages /> },
+            {
+                element: <AdminLayout />,
+                children: [
+                    { index:true, element: <Admin /> },
+                    { path: "user", element: <AllUsers /> },
+                    { path: "books", element: <AllBooks /> },
+                    { path: "addBook", element: <AdminAddBook /> },
+                    { path: "allmsg", element: <AllMessages /> },
+                ],
+            },
         ],
     },
+
 ]);
 
 export default router;
