@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import AdminLayout from "../Layout/AdminLayout";
 import About from "../Pages/About";
@@ -13,25 +13,8 @@ import Contact from "../Pages/Contact";
 import Home from "../Pages/Home";
 import Login from "../Pages/Login";
 import Signup from "../Pages/Signup";
+import AdminRoute from "./AdminRoute";
 
-
-const user = {
-    isLoggedIn: true,
-    role: "admin"
-}
-
-const AdminRoute = () => {
-    const isAuthenticated = user?.isLoggedIn;
-    const isAdmin = user?.role === "admin"
-
-    if (!isAuthenticated) {
-        return <Navigate to="/login" replace />
-    }
-    if (!isAdmin) {
-        return <Navigate to="/" replace />
-    }
-    return <Outlet />
-}
 
 const router = createBrowserRouter([
     {
