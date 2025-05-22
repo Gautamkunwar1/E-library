@@ -95,8 +95,10 @@ export default function EditBookModel({editedBook , setIsOpen}) {
                                 name="image"
                                 accept="image/*"
                                 className="w-full p-2 border border-gray-300 rounded-md bg-white outline-0"
-                                
                             />
+                            {editedBook.image && (
+                                <p className="text-sm mt-1 text-gray-600">Previously Uploaded : {editedBook.image}</p>
+                            )}
                         </div>
                         <div className="w-full">
                             <label htmlFor="pdf">Upload PDF:</label>
@@ -107,6 +109,9 @@ export default function EditBookModel({editedBook , setIsOpen}) {
                                 accept="application/pdf"
                                 className="w-full p-2 border border-gray-300 rounded-md bg-white outline-0"
                             />
+                            {editedBook.pdf && (
+                                <p className="text-sm mt-1 text-gray-600">Previously Uploaded :{editedBook.pdf}</p>
+                            )}
                         </div>
                     </div>
 
