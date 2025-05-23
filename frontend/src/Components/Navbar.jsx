@@ -116,7 +116,7 @@ function Navbar() {
                             ) : (
                                 <Link
                                     to="/login"
-                                    className="block text-white underline hover:text-yellow-300"
+                                    className="block text-white hover:text-yellow-300"
                                     onClick={() => setIsMenuOpen(false)}
                                 >
                                     LOGIN

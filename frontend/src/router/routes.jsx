@@ -13,6 +13,7 @@ import Contact from "../Pages/Contact";
 import Home from "../Pages/Home";
 import Login from "../Pages/Login";
 import Signup from "../Pages/Signup";
+import NotFound from "../Pages/NotFound";
 import AdminRoute from "./AdminRoute";
 
 
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
             { path: "/blog", element: <Blog /> },
             { path: "/login", element: <Login /> },
             { path: "/signup", element: <Signup /> },
+            { path:"*", element:<NotFound/> }
         ],
     },
     {
@@ -42,6 +44,7 @@ const router = createBrowserRouter([
                     { path: "books", element: <AllBooks /> },
                     { path: "addBook", element: <AdminAddBook /> },
                     { path: "allmsg", element: <AllMessages /> },
+                    { path:"*", element:<NotFound/> }
                 ],
             },
         ],
