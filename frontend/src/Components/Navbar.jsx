@@ -74,7 +74,7 @@ function Navbar() {
 
                     {/* Mobile Menu Toggle Button */}
                     <div className="md:hidden">
-                        <button onClick={toggleMenu} className="text-black focus:outline-none">
+                        <button onClick={toggleMenu} className="text-black focus:outline-none cursor-pointer">
                             {isMenuOpen ? (
                                 <FaXmark className="h-5 w-5" />
                             ) : (
@@ -86,7 +86,7 @@ function Navbar() {
 
                 {/* Mobile Menu */}
                 <div
-                    className={`md:hidden absolute top-full left-0 w-full bg-[#7bd3ae] text-white z-40 transition-all duration-300 ${
+                    className={`md:hidden absolute top-full left-0 w-full bg-[#7bd3ae]  text-white z-40 transition-all duration-300 ${
                         isMenuOpen ? 'block' : 'hidden'
                     }`}
                 >
@@ -95,7 +95,7 @@ function Navbar() {
                             <Link
                                 key={index}
                                 to={item.path}
-                                className="block text-base uppercase hover:text-yellow-300"
+                                className="block text-base uppercase  hover:text-yellow-300"
                                 onClick={() => setIsMenuOpen(false)}
                             >
                                 {item.link}
@@ -108,7 +108,7 @@ function Navbar() {
                                     <div>WELCOME, {user?.name?.toUpperCase()}</div>
                                     <button
                                         onClick={handleLogout}
-                                        className="underline hover:text-yellow-300"
+                                        className=" hover:text-yellow-300"
                                     >
                                         LOGOUT
                                     </button>

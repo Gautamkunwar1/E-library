@@ -10,11 +10,13 @@ import AllUsers from "../Pages/AllUsers";
 import Blog from "../Pages/Blog";
 import Books from "../Pages/Books";
 import Contact from "../Pages/Contact";
+import Premium from "../Pages/Premium";
 import Home from "../Pages/Home";
 import Login from "../Pages/Login";
 import Signup from "../Pages/Signup";
 import NotFound from "../Pages/NotFound";
 import AdminRoute from "./AdminRoute";
+
 
 
 const router = createBrowserRouter([
@@ -29,6 +31,7 @@ const router = createBrowserRouter([
             { path: "/blog", element: <Blog /> },
             { path: "/login", element: <Login /> },
             { path: "/signup", element: <Signup /> },
+            {path: "/premium",element:<Premium/>},
             { path:"*", element:<NotFound/> }
         ],
     },

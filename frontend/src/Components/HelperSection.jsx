@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import axios from 'axios';
 import BookCard from './BookCard';
 import CardSection from './CardSection';
 import { FaLock } from "react-icons/fa";
+import { Link } from 'react-router-dom';
+import Premium from '../Pages/Premium';
 
 function Index() {
     const [books, setBooks] = useState([]);
@@ -53,11 +55,10 @@ function Index() {
                             You need to purchase our premium subscription for accessing more content.
                         </div>
                         
-                        <a href="#" className='text-blue-800 underline text-lg'>Visit our premium plan list</a>
-
-                        <button className='bg-[#6baf76] w-[95%] p-2 mt-3 mb-5 mx-auto font-bold text-white cursor-pointer hover:bg-[#436e4a]'>
+                        <Link to= "/premium" className='text-blue-800 underline text-lg'>Visit our premium plan list</Link>
+                        <Link to="/premium"><button className='bg-[#6baf76] w-[95%] p-2 mt-3 mb-5 mx-auto font-bold text-white cursor-pointer hover:bg-[#436e4a]'>
                             Subscribe Now
-                        </button>
+                        </button></Link>
                     </div>
                 </div>
             </CardSection>
