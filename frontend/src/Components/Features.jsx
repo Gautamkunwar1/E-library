@@ -11,7 +11,6 @@ function Features({features}){
                 </div>
             ))}
         </div>
-            
         </>
     )
 }
