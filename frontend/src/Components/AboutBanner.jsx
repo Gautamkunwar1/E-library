@@ -1,4 +1,4 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 import InfoCard from './InfoCard';
 
 function AboutBanner() {
@@ -28,10 +28,10 @@ function AboutBanner() {
                         <InfoCard />
                     </div>
 
-                    <div className='flex justify-center md:justify-start'>
-                        <button className='w-40 bg-[#44a561f1] py-2 rounded-md text-white font-semibold hover:bg-[#388f55] transition'>
+                    <div className='flex justify-center md:justify-start '>
+                    <Link to ="/premium"><button className='w-40 bg-[#44a561f1] py-2 rounded-md text-white font-semibold hover:bg-[#388f55] transition'>
                             Explore Now
-                        </button>
+                        </button></Link> 
                     </div>
                 </div>
             </div>

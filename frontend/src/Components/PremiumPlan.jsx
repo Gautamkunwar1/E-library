@@ -5,7 +5,7 @@ function PremiumPlan({price,planName,description,features,isYearly}) {
         <>
             <div className="flex flex-col justify-between p-10 w-full sm:w-[80%] md:w-[60%] lg:w-[30%] mx-auto bg-green-200 shadow-2xl space-y-2 text-lg">
                 <div className="flex gap-2 items-center sm:gap-y-2">
-                    <h1 className="text-2xl font-semibold">${price} </h1>
+                    <h1 className="text-2xl font-semibold">₹{price} </h1>
                     <p className="text-gray-500 text-xl">/{isYearly ? "year" : "month"}</p>
                 </div>
                 <h2 className="text-3xl font-bold">{planName}</h2>

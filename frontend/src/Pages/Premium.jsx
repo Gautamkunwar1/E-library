@@ -5,7 +5,7 @@ function Premium(){
     const [isYearly,setYearly] = useState(false);
     const monthlyPlans = [
         {
-            price : 19,
+            price : 250,
             planName: "Starter",
             description:"Limited access, great for new users or casual readers.",
             features: [
@@ -17,7 +17,7 @@ function Premium(){
             ]
         },
         {
-            price : 29,
+            price : 700,
             planName: "Basic",
             description:"Mid-tier with more access and user conveniences.",
             features: [
@@ -29,7 +29,7 @@ function Premium(){
             ]
         },
         {
-            price : 39,
+            price : 1500,
             planName: "Pro",
             description:"Full access with premium tools and priority support.",
             features: [
@@ -45,7 +45,7 @@ function Premium(){
 
     const yearlyPlans = monthlyPlans.map(plan=>({
         ...plan,
-        price : plan.price *10,
+        price : plan.price *11,
     }));
     
     const displayedPlans = isYearly ? yearlyPlans :monthlyPlans;

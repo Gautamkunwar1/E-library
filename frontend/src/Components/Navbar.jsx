@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaBarsStaggered, FaXmark } from 'react-icons/fa6';
 import { Link, useNavigate } from 'react-router-dom';
 import useAuthStore from '../store/UseAuthStore';
@@ -105,7 +105,7 @@ function Navbar() {
                         <div className="mt-4 border-t border-white pt-4">
                             {user ? (
                                 <div className="text-yellow-200 font-bold space-y-1">
-                                    <div>WELCOME, {user?.name?.toUpperCase()}</div>
+                                    {user?.role === "user" && <div>WELCOME, {user?.name?.toUpperCase()}</div>}
                                     <button
                                         onClick={handleLogout}
                                         className=" hover:text-yellow-300"

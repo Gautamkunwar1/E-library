@@ -49,13 +49,15 @@ const useAuthStore = create ((set, get)=>({
             console.error(`Error:${error.message}`)
         }
     },
+    
     checkAuth:async()=>{
         try {
-            const res = await res.get("/api/auth/profile");
-            set({user:res.data,checkingAuth:false})
+            const res = await axios.get("/api/auth/profile");
+            console.log(res);
+            set({user:res.data.data,checkingAuth:false})
         } catch (error) {
             console.error(error.message);
-            set({user:null,checkAuth:false})
+            set({user:null,checkingAuth:false})
         }
     }
     

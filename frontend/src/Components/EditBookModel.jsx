@@ -1,12 +1,55 @@
+import axios from "axios";
+import { set } from "mongoose";
+import { useState } from "react"
+
 export default function EditBookModel({editedBook , setIsOpen}) {
-    console.log(editedBook)
-    function handleClose(){
-        setIsOpen(false)
+    const [formdata,setFormData] = useState({
+            bookName: editedBook.bookName,
+            author :editedBook.author,
+            isbn: editedBook.isbn,
+            publishYear : editedBook.publishYear,
+            genre : editedBook.genre,
+            desc : editedBook.desc,
+        });
+        const [image, setImage] = useState(null);
+        const [pdf, setPdf] = useState(null);
+        function handleClose(){
+        setIsOpen(false);
+    }
+
+    const handleChange =(e)=>{
+        const {name,value} = e.target;
+        setFormData((prev)=>({...prev,[name]:value}));
+    }
+    
+    const handleSubmit = async (e)=>{
+        e.preventDefault();
+        try {
+            const form = new FormData();
+            form.append("bookName",formdata.bookName);
+            form.append("author",formdata.author);
+            form.append("isbn",formdata.isbn);
+            form.append("publishYear",formdata.publishYear);
+            form.append("genre",formdata.genre);
+            form.append("desc",formdata.desc);
+
+            if(image) form.append("image",image);
+            if(pdf) form.append("pdf",pdf);
+            const res = await axios.put(`/api/admin/bookEdit/${editedBook._id}`,form,
+                {
+                    headers:{"Content-Type":"multipart/form-data"}
+                }
+            )
+            console.log("Book Updated:",res.data);
+            setIsOpen(false)
+        } catch (error) {
+            console.error("Error updating book:",error.message)
+        }
     }
     return (
         <>
             <div className="min-h-screen flex items-center justify-center backdrop-blur-[5px]  absolute top-0 w-full left-0 z-100">
-                <form className="space-y-1 p-7 bg-green-50">
+                <form className="space-y-1 p-7 bg-green-50" onSubmit={handleSubmit} encType="multipart/form-data">
                     <div className="flex flex-col md:flex-row gap-4">
                         <div className="w-full">
                             <label htmlFor="bookName">Book Name:</label>
@@ -15,7 +58,8 @@ export default function EditBookModel({editedBook , setIsOpen}) {
                                 id="bookName"
                                 name="bookName"
                                 placeholder="Enter book name"
-                                value={editedBook.bookName}
+                                value={formdata.bookName}
+                                onChange={handleChange}
                                 className="w-full p-2 border border-gray-300 rounded-md bg-white outline-0"
                             />
                         </div>
@@ -25,8 +69,8 @@ export default function EditBookModel({editedBook , setIsOpen}) {
                                 type="text"
                                 id="author"
                                 name="author"
-                                placeholder="Enter author name"
-                                value={editedBook.author}
+                                value={formdata.author}
+                                onChange={handleChange}
                                 className="w-full p-2 border border-gray-300 rounded-md bg-white outline-0"
                             />
                         </div>
@@ -39,8 +83,8 @@ export default function EditBookModel({editedBook , setIsOpen}) {
                                 type="text"
                                 id="isbn"
                                 name="isbn"
-                                placeholder="Enter ISBN"
-                                value={editedBook.isbn}
+                                value={formdata.isbn}
+                                onChange={handleChange}
                                 className="w-full p-2 border border-gray-300 rounded-md bg-white outline-0"
                             />
                         </div>
@@ -50,8 +94,8 @@ export default function EditBookModel({editedBook , setIsOpen}) {
                                 type="text"
                                 id="publishYear"
                                 name="publishYear"
-                                placeholder="Enter publication year"
-                                value={editedBook.publishYear}
+                                value={formdata.publishYear}
+                                onChange={handleChange}
                                 className="w-full p-2 border border-gray-300 rounded-md bg-white outline-0"
                             />
                         </div>
@@ -62,7 +106,8 @@ export default function EditBookModel({editedBook , setIsOpen}) {
                         <select
                             id="genre"
                             name="genre"
-                            defaultValue={editedBook.genre}
+                            defaultValue={formdata.genre}
+                            onChange={handleChange}
                             className="w-full p-2 border border-gray-300 rounded-md bg-white"
                         >
                             <option value="">Select</option>
@@ -80,9 +125,9 @@ export default function EditBookModel({editedBook , setIsOpen}) {
                         <textarea
                             id="desc"
                             name="desc"
-                            placeholder="Enter book description"
                             className="w-full p-2 border border-gray-300 rounded-md bg-white outline-0"
-                            value={editedBook.desc}
+                            value={formdata.desc}
+                            onChange={handleChange}
                         />
                     </div>
 
@@ -94,6 +139,7 @@ export default function EditBookModel({editedBook , setIsOpen}) {
                                 id="image"
                                 name="image"
                                 accept="image/*"
+                                onChange={(e)=>setImage(e.target.files[0])}
                                 className="w-full p-2 border border-gray-300 rounded-md bg-white outline-0"
                             />
                             {editedBook.image && (
@@ -107,6 +153,7 @@ export default function EditBookModel({editedBook , setIsOpen}) {
                                 id="pdf"
                                 name="pdf"
                                 accept="application/pdf"
+                                onChange={(e)=>setPdf(e.target.files[0])}
                                 className="w-full p-2 border border-gray-300 rounded-md bg-white outline-0"
                             />
                             {editedBook.pdf && (
@@ -117,7 +164,7 @@ export default function EditBookModel({editedBook , setIsOpen}) {
 
                     <div>
                         
-                        <button className="w-full  bg-green-600 hover:bg-green-800 mt-5 text-white p-2 rounded-md cursor-pointer transition" onClick={()=>{}}>Update</button>
+                        <button className="w-full  bg-green-600 hover:bg-green-800 mt-5 text-white p-2 rounded-md cursor-pointer transition">Update</button>
                         <button className="w-full  bg-red-500 hover:bg-red-800 mt-5 text-white p-2 rounded-md cursor-pointer transition" onClick={handleClose}>Cancel</button>
                     </div>
                 </form>
